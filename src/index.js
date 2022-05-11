@@ -1,7 +1,19 @@
-const mdLinks = {
+module.exports = () => {
+  // ...
 
 
-const fs = require('fs');
+  const fs = require('fs');
+  
+  // Use fs.readFile() method to read the file
+  fs.readFile('MD 1.txt', 'utf8', function(err, data){
+        
+      // Display the file content
+      console.log(data);
+  });
+    
+  console.log('readFile called');
+
+  // const fs = require('fs');
 
 // const path = process.argv[2];
 // console.log(path);
@@ -14,20 +26,20 @@ const fs = require('fs');
 //   console.log(data);
 // });
 
-const read = (file) =>{
-  const result = 0
-  fs.readFile(file, 'utf8', (err, data) => {
-      if (err) {
-        // console.error(err);
-        return ;
-      }
-      // console.log(data);
-      return ;
-    });
-    return result;
-};
+// const read = (file) =>{
+//   const result = 0
+//   fs.readFile(file, 'utf8', (err, data) => {
+//       if (err) {
+//         // console.error(err);
+//         return ;
+//       }
+//       // console.log(data);
+//       return ;
+//     });
+//     return result;
+// };
 
-exports.read = read;
+// exports.read = read;
 
 
 
