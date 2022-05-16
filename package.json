@@ -1,7 +1,14 @@
 {
-  "name": "md-links",
+  "name": "nay-md-links",
   "version": "0.1.0",
+  "type": "module",
   "engines": {
     "node": ">=14.x"
+  },
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "devDependencies": {
+    "jest": "^28.1.0"
   }
 }
