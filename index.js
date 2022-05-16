@@ -1,5 +1,8 @@
-const path = require('path');
-
+import path from 'path'
+import process from 'process'
+import * as fs from 'fs'
+import { getAbsolutePath } from './util.js'
+// const path = require('path');
 
 // module.exports  = () => {
 // mdLinks;
@@ -7,21 +10,11 @@ const path = require('path');
 
 const mdLinks = (route, options) => {
   if (!route) {
-    console.log('no hay path');
-    return ;
+    console.log('no hay path')
+    return
   }
-  console.log(path.isAbsolute(route));
-  const truePath = path.isAbsolute(route) ? route : path.resolve(route);
-  console.log(truePath);
-};
+  console.log(getAbsolutePath(route));
+}
 
-//Agarra segundo argumento de la terminal
-mdLinks(process.argv[2]);
-
-
-
-//pasar todo esto al CLI - despues de leer
-
-
-
-
+//  Agarra segundo argumento de la terminal
+mdLinks(process.argv[2])

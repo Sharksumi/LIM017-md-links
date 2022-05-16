@@ -1,20 +1,31 @@
 {
   "name": "sharksumi-md-links",
   "version": "0.1.0",
+  "type": "module",
   "engines": {
     "node": ">=14.x"
   },
   "dependencies": {
     "chalk": "^5.0.1",
+    "cross-env": "^7.0.3",
     "file-system": "^1.2.2",
-    "marked": "^4.0.15"
+    "jest": "^28.1.0",
+    "marked": "^4.0.15",
+    "test": "^0.6.0"
   },
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "build": "babel src -d lib"
   },
   "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.17.12",
     "eslint": "^8.15.0",
-    "jest": "^28.1.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.0",
+    "eslint-plugin-promise": "^6.0.0",
     "prettier": "2.6.2"
   }
 }

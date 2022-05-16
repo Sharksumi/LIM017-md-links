@@ -1,8 +1,15 @@
 {
   "env": {
-    "node": true
+    "node": true,
+    "jest": true
   },
   "parserOptions": {
+    "sourceType": "module",
     "ecmaVersion": 8
-  }
+  },
+"extends": "eslint:recommended",
+"author": "Nay Trevejo <naytrevejo@gmail.com>",
+"license": "MIT"
 }
+
+
