@@ -9,14 +9,15 @@ describe('getAbsolutePath', () => {
 });
 
 describe ('fileExists', () => {
-    it('show if the file of the route exists', () => {
+    it('it should return true is the file exists', () => {
         expect(fileExists('./MD3.md')).toBe(true);
     })
 });
 
+
 describe('readFile', () => {
     it('shows the content of the file',() =>{
-        expect(readFile('./MD3.md')).toBe('pruebita pruebota')
+        expect(readFile(routeTest)).toBe('pruebita pruebota')
     })
 });
 

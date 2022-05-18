@@ -1,7 +1,7 @@
 import path from 'path'
 import process from 'process'
 import * as fs from 'fs'
-import { getAbsolutePath } from './util.js'
+import { getAbsolutePath, fileExists, readFile } from './util.js'
 
 
 const mdLinks = (route, options) => {
@@ -10,6 +10,11 @@ const mdLinks = (route, options) => {
     return
   }
   console.log(getAbsolutePath(route));
+  if (!fileExists){
+    console.log('The file does not exist')
+    return
+  }
+  console.log(readFile);
 }
 
 //  Agarra segundo argumento de la terminal
