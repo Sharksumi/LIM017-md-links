@@ -6,12 +6,17 @@
     "node": ">=14.x"
   },
   "scripts": {
-    "test": "jest --verbose --coverage --env=jsdom"
+    "test": "jest --verbose --coverage"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.17.12",
     "babel": "^6.23.0",
     "babel-jest": "^28.1.0",
+    "eslint": "^8.15.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.0",
+    "eslint-plugin-promise": "^6.0.0",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0"
   }
