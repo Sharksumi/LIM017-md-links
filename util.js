@@ -7,50 +7,58 @@ export const readFile = (route) => fs.readFileSync(route, 'utf-8'); // contenido
 
 const mdRoutes = [];
 const foundLinksAndText = [];
+let command = process.argv[2];
 
 // funcion recursiva
 
 const getMdRoutes = (route) => {
   const dirList = fs.readdirSync(route);
-  dirList.forEach(dir => {
+  dirList.forEach(dir => { // recorrer el directorio
     const concatPath = path.join(route, dir);
     if (fs.statSync(concatPath).isFile()) { // caso base
       if (path.extname(concatPath) === '.md') { // para saber si es archivo md
-        mdRoutes.push(concatPath);
+        mdRoutes.push(concatPath); // push the urls to the empty array
       }
     } else {
-      getMdRoutes(concatPath);
+      getMdRoutes(concatPath); // Recorre nuevamente el directorio, pero con la nueva ruta
     }
   });
 };
 
 const extractLinks = (routeWithLink) => {
-  const linkPattern = /\[([^\[]+)\](\(.*\))/gm;
-  const infoPattern = /\[([^\[]+)\]\((.*)\)/;
+  const linkPattern = /\[([^\[]+)\](\(.*\))/gm; // patrón de links global y multilinea
+  const contentLinkPattern = /\[([^\[]+)\]\((.*)\)/; // patrón de links en regex
 
-  const fileContent = readFile(routeWithLink);
-  const linksOnMd = fileContent.match(linkPattern);
-  if (linksOnMd === null) {
+  // /\[([^\[]+)\]\(http?(.*)\)/gm  -> pattern para http
+
+  const fileContent = readFile(routeWithLink); // contenido total del documento md
+  const linksOnMd = fileContent.match(linkPattern); // comprueba si hay links en el md
+  if (linksOnMd === null) { // si no hay links retorna null
     return 'En este Markdown no hay links';
   }
-  linksOnMd.forEach(link => {
-    const foundInfo = link.match(infoPattern);
-    foundLinksAndText.push({
-      href: foundInfo[2],
-      text: foundInfo[1],
+
+  linksOnMd.forEach(link => { // recorrer cada MD con links en el contenido
+    const foundContentInfo = link.match(contentLinkPattern); // Hacerle match a los links en el contenido con el patrón para reconocer cada uno de los links
+    foundLinksAndText.push({ // pushear la info en el siguiente orden:
+      href: foundContentInfo[2],
+      text: foundContentInfo[1],
       file: routeWithLink
     });
   });
 };
 
-// -w- MDLinks
-const mdLinks = () => {
-  const routeTest2 = 'C:\\Users\\Andrea Trevejo\\Desktop\\Laboratoria\\LIM017-md-links\\example';
+// -w- MDLinks??
 
-  getMdRoutes(routeTest2);
+
+export const getMdInfoOnArray = () => {
+  getMdRoutes(command);
   mdRoutes.forEach(route => {
     extractLinks(route);
   });
   console.log(foundLinksAndText);
 };
-mdLinks();
+getMdInfoOnArray();
+
+console.log(command);
+
+// 'C:\\Users\\Andrea Trevejo\\Desktop\\Laboratoria\\LIM017-md-links\\example'

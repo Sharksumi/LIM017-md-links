@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { getAbsolutePath, fileExists, readFile } from '../util.js';
+import { getAbsolutePath, fileExists, readFile} from '../util.js';
 
 const routeTest = 'C:\\Users\\Andrea Trevejo\\Desktop\\Laboratoria\\LIM017-md-links\\MD3.md';
 
@@ -20,3 +20,9 @@ describe('readFile', () => {
     expect(readFile(routeTest)).toBe('Texto prueba MD3');
   });
 });
+
+// describe('getMdRoutes', () => {
+//   it('shows something', () => {
+//     expect(getMdInfoOnArray(routeTest)).toBe('c');
+//   });
+// });
