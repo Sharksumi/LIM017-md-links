@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import fetch from 'node-fetch';
 
 export const getAbsolutePath = (route) => path.isAbsolute(route) ? route : path.resolve(route);
 export const fileExists = (route) => fs.existsSync(route); // booleano
@@ -7,7 +8,7 @@ export const readFile = (route) => fs.readFileSync(route, 'utf-8'); // contenido
 
 const mdRoutes = [];
 const foundLinksAndText = [];
-let command = process.argv[2];
+const command = process.argv[2];
 
 // funcion recursiva
 
@@ -29,8 +30,6 @@ const extractLinks = (routeWithLink) => {
   const linkPattern = /\[([^\[]+)\](\(.*\))/gm; // patrón de links global y multilinea
   const contentLinkPattern = /\[([^\[]+)\]\((.*)\)/; // patrón de links en regex
 
-  // /\[([^\[]+)\]\(http?(.*)\)/gm  -> pattern para http
-
   const fileContent = readFile(routeWithLink); // contenido total del documento md
   const linksOnMd = fileContent.match(linkPattern); // comprueba si hay links en el md
   if (linksOnMd === null) { // si no hay links retorna null
@@ -49,16 +48,43 @@ const extractLinks = (routeWithLink) => {
 
 // -w- MDLinks??
 
-
 export const getMdInfoOnArray = () => {
   getMdRoutes(command);
   mdRoutes.forEach(route => {
     extractLinks(route);
   });
-  console.log(foundLinksAndText);
+  // console.log(foundLinksAndText);
 };
 getMdInfoOnArray();
 
-console.log(command);
-
 // 'C:\\Users\\Andrea Trevejo\\Desktop\\Laboratoria\\LIM017-md-links\\example'
+
+const comandos = process.argv;
+
+let validate = false;
+const found = comandos.find((option) => option === '--validate');
+
+// validate = !!found; // doble negación
+validate = found === '--validate';
+
+const arrayVacio = [];
+
+if (validate) {
+  foundLinksAndText.forEach( object => {
+    let newObject = {};
+    fetch(object.href)
+      .then(response => response)
+      .then(data => {
+        // console.log(data.status, data.statusText, data.ok);
+        newObject = {
+        ...object,
+          status: data.status,
+          ok : data.status === 200 ? 'ok' : 'fail'
+        };
+        arrayVacio.push(newObject);
+      })
+      .catch(error => console.log(error));
+    
+  });
+}
+console.log(arrayVacio);

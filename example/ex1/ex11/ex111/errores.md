@@ -1,5 +1,5 @@
 # Archivo de links rotos
 
-[Pasteles PPP](https://www.pastelespastelitospastelotes.com/)
-[Faro jpg](https://i.picsum.photos/id/877789410/200/300.jpg)
-[Sin http](http://es.wikipedia.org/wiki/Recursi%C3%B3n)
+[Movistar Paquete Justo](https://movistarofertas.pe/paquete_justo)
+[Mvistar Paquete Estafador](https://movistarofertas.pe/paquete_estafador)
+[Biblioteca Domingos](https://www.bnp.gob.pe/blibioteca_domingos)

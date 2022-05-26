@@ -15,6 +15,8 @@ describe('fileExists', () => {
   });
 });
 
+// test esta fallando en util lin 15 v
+
 describe('readFile', () => {
   it('shows the content of the file', () => {
     expect(readFile(routeTest)).toBe('Texto prueba MD3');

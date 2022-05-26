@@ -19,5 +19,8 @@
     "eslint-plugin-promise": "^6.0.0",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0"
+  },
+  "dependencies": {
+    "node-fetch": "^3.2.4"
   }
 }
