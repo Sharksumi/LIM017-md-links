@@ -2,13 +2,14 @@ import path from 'path';
 import fs from 'fs';
 import fetch from 'node-fetch';
 
+
 export const getAbsolutePath = (route) => path.isAbsolute(route) ? route : path.resolve(route);
 export const fileExists = (route) => fs.existsSync(route); // booleano
 export const readFile = (route) => fs.readFileSync(route, 'utf-8'); // contenido del archivo
 
 const mdRoutes = [];
-const foundLinksAndText = [];
 const command = process.argv[2];
+let result = [];
 
 // funcion recursiva
 
@@ -38,7 +39,7 @@ const extractLinks = (routeWithLink) => {
 
   linksOnMd.forEach(link => { // recorrer cada MD con links en el contenido
     const foundContentInfo = link.match(contentLinkPattern); // Hacerle match a los links en el contenido con el patrón para reconocer cada uno de los links
-    foundLinksAndText.push({ // pushear la info en el siguiente orden:
+    result.push({ // pushear la info en el siguiente orden:
       href: foundContentInfo[2],
       text: foundContentInfo[1],
       file: routeWithLink
@@ -67,24 +68,32 @@ const found = comandos.find((option) => option === '--validate');
 // validate = !!found; // doble negación
 validate = found === '--validate';
 
-const arrayVacio = [];
+
 
 if (validate) {
-  foundLinksAndText.forEach( object => {
-    let newObject = {};
-    fetch(object.href)
-      .then(response => response)
-      .then(data => {
-        // console.log(data.status, data.statusText, data.ok);
-        newObject = {
-        ...object,
-          status: data.status,
-          ok : data.status === 200 ? 'ok' : 'fail'
+  const arrayVacio = [];
+  for (const object of result) {
+    const fetched = fetch(object.href)
+      .then(response => {
+        return {
+          status: response.status,
+          ok: response.status === 200 ? 'ok' : 'fail'
         };
-        arrayVacio.push(newObject);
       })
       .catch(error => console.log(error));
-    
-  });
+      arrayVacio.push({   // juntar un objeto con otro.
+      ...object,          // poner los ... para agregar las propiedades de un objeto a uno nuevo
+      ... await fetched   // lo mismo con el segundo objeto
+    })
+    // console.log(await fetched);
+  };
+  result = arrayVacio;
 }
-console.log(arrayVacio);
+
+const stats = result.map(item => item.href)
+
+
+console.log(stats);
+// console.log(result);
+
+
