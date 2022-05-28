@@ -90,10 +90,29 @@ if (validate) {
   result = arrayVacio;
 }
 
-const stats = result.map(item => item.href)
+// Stats
 
+let statsOption = false;
+const foundStats = comandos.find((option) => option === '--stats');
 
-console.log(stats);
-// console.log(result);
+// stats = !!found; // doble negación
+statsOption = foundStats === '--stats';
 
+if(statsOption){
 
+// arg function
+
+  const uniqueStats = result.map(item => [ item ['href'], item]);
+  const uniqueStatsMapped = new Map(uniqueStats).values()
+  const finalStats = [...uniqueStatsMapped]
+
+  console.log('Links totales:', result.length);
+  console.log('Links únicos:', finalStats.length);
+  if(validate){
+    const broken = finalStats.filter((value) => value.status !== 200) // si no es de los unicos remplazar finalstats x result
+    console.log('Links rotos:', broken.length)
+  }
+}
+else{
+  console.log(result);
+}
