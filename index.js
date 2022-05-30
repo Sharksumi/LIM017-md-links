@@ -1,22 +1,45 @@
 import process from 'process';
-import { getAbsolutePath, fileExists, readFile } from './util.js';
+import { getAbsolutePath, fileExists, getMdRoutes, extractLinks, validateLinks, getStats } from './util.js';
 
-const mdLinks = (route, options) => {
+export const mdLinks = async (route, options) => {
   if (!route) {
     console.log('no hay path');
     return;
   }
-  console.log(getAbsolutePath(route));
-  if (!fileExists) {
-    console.log('The file does not exist');
-    return;
+  const absolutePath = getAbsolutePath(route);
+  if (!fileExists(absolutePath)) {
+    console.log('La ruta no existe');
   }
-  console.log(readFile);
+  const mdRoutes = getMdRoutes(absolutePath);
+  let foundLinks = [];
+  let stats = {};
+  mdRoutes.forEach(route => {
+    foundLinks = foundLinks.concat(extractLinks(route));
+  });
+
+  if (options.validate) {
+    foundLinks = await validateLinks(foundLinks);
+  }
+  if (options.stats) {
+    stats = getStats(foundLinks, options.validate);
+  }
+  console.log(foundLinks);
+  console.log(stats);
 };
 
-//  Agarra segundo argumento de la terminal
-mdLinks(process.argv[2]);
+const commandArg = process.argv; // mover a cli
 
-// module.exports = () => {
-//   // ...
-// };
+let validate = false;
+const foundValidate = commandArg.find((option) => option === '--validate');
+
+validate = foundValidate === '--validate';
+
+// Stats
+
+let stats = false;
+const foundStats = commandArg.find((option) => option === '--stats');
+
+// stats = !!found; // doble negación
+stats = foundStats === '--stats';
+
+mdLinks(process.argv[2], { validate, stats });

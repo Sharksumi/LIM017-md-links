@@ -1,5 +1,5 @@
 {
-  "name": "nay-md-links",
+  "name": "sharksumi-md-links",
   "version": "0.1.0",
   "type": "module",
   "engines": {
@@ -21,6 +21,7 @@
     "jest-environment-jsdom": "^28.1.0"
   },
   "dependencies": {
+    "chalk": "^5.0.1",
     "node-fetch": "^3.2.4"
   }
 }
