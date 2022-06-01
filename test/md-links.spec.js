@@ -1,11 +1,11 @@
-/* eslint-disable no-undef */
-const mdLinks = require('../');
+// /* eslint-disable no-undef */
+// const mdLinks = require('../');
 
 
-describe('mdLinks', () => {
+// describe('mdLinks', () => {
 
-  it('should...', () => {
-    console.log('FIX ME!');
-  });
+//   it('should...', () => {
+//     console.log('FIX ME!');
+//   });
 
-});
+// });
