@@ -1,7 +1,16 @@
 /* eslint-disable no-undef */
-import { getAbsolutePath, fileExists, readFile} from '../util.js';
+import fetch from 'node-fetch';
+import { getAbsolutePath, fileExists, readFile, validateLinks } from '../util.js';
+jest.mock('node-fetch');
 
 const routeTest = 'C:\\Users\\Andrea Trevejo\\Desktop\\Laboratoria\\LIM017-md-links\\MD3.md';
+const validateRouteArray = [
+  {
+    href: 'https://picsum.photos/id/1003/800/1200',
+    text: 'Este es un venadito',
+    file: '/home/pedro/repos/misc/kasu/LIM017-md-links/example/MD1.md'
+  }
+];
 
 describe('getAbsolutePath', () => {
   it('Show resolve path in windows', () => {
@@ -23,8 +32,11 @@ describe('readFile', () => {
   });
 });
 
-// describe('getMdRoutes', () => {
-//   it('shows something', () => {
-//     expect(getMdInfoOnArray(routeTest)).toBe('c');
-//   });
-// });
+describe('validateLinks', () => {
+  it('shows something', async () => {
+    fetch.mockReturnValue(Promise.resolve({ status: 123 }));
+    expect(await validateLinks(validateRouteArray)).objectContaining([{
+      status: 123
+    }]);
+  });
+});

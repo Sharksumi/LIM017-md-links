@@ -44,7 +44,7 @@ export const extractLinks = (routeWithLink) => {
   }
   return foundLinks;
 };
-
+// links array tiene objetos
 export const validateLinks = async (linksArray) =>{
   const validatedLinksArray = [];
   for (const object of linksArray) {
