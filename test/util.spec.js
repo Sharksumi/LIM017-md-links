@@ -11,6 +11,16 @@ const validateRouteArray = [
     file: '/home/pedro/repos/misc/kasu/LIM017-md-links/example/MD1.md'
   }
 ];
+const objectResponse = [
+  {
+    href: 'https://picsum.photos/id/1003/800/1200',
+    text: 'Este es un venadito',
+    file: '/home/pedro/repos/misc/kasu/LIM017-md-links/example/MD1.md',
+    status: 123,
+    ok: 'fail'
+  }
+
+]
 
 describe('getAbsolutePath', () => {
   it('Show resolve path in windows', () => {
@@ -35,8 +45,6 @@ describe('readFile', () => {
 describe('validateLinks', () => {
   it('shows something', async () => {
     fetch.mockReturnValue(Promise.resolve({ status: 123 }));
-    expect(await validateLinks(validateRouteArray)).objectContaining([{
-      status: 123
-    }]);
+    expect(await validateLinks(validateRouteArray)).toMatchObject(objectResponse);
   });
 });
