@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import fetch from 'node-fetch';
 
-let linksArray = [];
+const linksArray = [];
 
 export const getAbsolutePath = (route) => path.isAbsolute(route) ? route : path.resolve(route);
 export const fileExists = (route) => fs.existsSync(route); // booleano
@@ -11,7 +11,7 @@ export const readFile = (route) => fs.readFileSync(route, 'utf-8'); // contenido
 export const getMdRoutes = (route) => {
   let mdRoutes = [];
 
-  if(fs.statSync(route).isFile()){
+  if (fs.statSync(route).isFile()) {
     if (path.extname(route) === '.md') { // para saber si es archivo md
       mdRoutes.push(route); // push the urls to the empty array
     }
@@ -45,37 +45,42 @@ export const extractLinks = (routeWithLink) => {
   return foundLinks;
 };
 // links array tiene objetos
-export const validateLinks = async (linksArray) =>{
-  const validatedLinksArray = [];
-  for (const object of linksArray) {
-    const fetched = fetch(object.href)
-      .then(response => {
-        return {
-          status: response.status,
-          ok: response.status === 200 ? 'ok' : 'fail'
-        };
-      })
-      .catch(error => console.log(error));
-    validatedLinksArray.push({   // juntar un objeto con otro.
-      ...object,          // poner los ... para agregar las propiedades de un objeto a uno nuevo
-      ... await fetched   // lo mismo con el segundo objeto
-    });
-  };
-  return validatedLinksArray;
-}
 
-export const getStats = (linksArray, validate) =>{
-  let uniqueLinksArray = [...new Map(linksArray.map(item => [ item ['href'], item])).values()];
+// nueva promesa
+
+export const fetchData = (object) => {
+  return fetch(object.href)
+    .then(response => {
+      return {
+        status: response.status,
+        ok: response.status === 200 ? 'ok' : 'fail'
+      };
+    })
+    .then(data => {
+      return Promise.resolve(Object.assign(object, data));
+    })
+    .catch(error => console.log(error));
+};
+
+export const validateLinks = (linksArray) => {
+  return Promise.all(
+    linksArray.map(fetchData)
+  );
+};
+
+export const getStats = (linksArray, validate) => {
+  const uniqueLinksArray = [...new Map(linksArray.map(item => [item.href, item])).values()];
 
   let brokenLinksArray = [];
-  if(validate){
-    brokenLinksArray = uniqueLinksArray.filter((value) => value.status !== 200) // si no es de los unicos remplazar finalstats x result
+  if (validate) {
+    brokenLinksArray = uniqueLinksArray.filter((value) => value.status !== 200); // si no es de los unicos remplazar finalstats x result
   }
-  return {
+  const stats = {
     total: linksArray.length,
-    unique: uniqueLinksArray.length,
-    broken: validate ? brokenLinksArray.length : 0
+    unique: uniqueLinksArray.length
   };
-}
-
-
+  if (validate) {
+    stats.broken = brokenLinksArray.length;
+  }
+  return stats;
+};

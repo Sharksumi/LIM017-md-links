@@ -1,12 +1,15 @@
 {
   "name": "sharksumi-md-links",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "engines": {
     "node": ">=14.x"
   },
   "scripts": {
     "test": "jest --verbose --coverage"
+  },
+  "bin": {
+    "md-links": "cli.js"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.18.2",
@@ -24,11 +27,28 @@
   },
   "dependencies": {
     "chalk": "^5.0.1",
-    "node-fetch": "2.6.7"
+    "node-fetch": "2.6.7",
+    "yargs": "^17.5.1"
   },
   "jest": {
     "transform": {
       "^.+\\.(t|j)sx?$": "babel-jest"
     }
-  }
+  },
+  "description": "A command Line to verify links on a md file",
+  "main": "index.js",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sharksumi/LIM017-md-links.git"
+  },
+  "author": "Nay Trevejo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sharksumi/LIM017-md-links/issues"
+  },
+  "homepage": "https://github.com/Sharksumi/LIM017-md-links#readme"
 }
