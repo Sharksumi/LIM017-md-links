@@ -34,7 +34,7 @@ Las opciones disponibles son las siguientes:
 - Historia de usuario 1 
 Se creo un diagrama de flujo para representar los procesos necesarios de la aplicación.
 
--![Diagrama de Flujo](url)
+-![Diagrama de Flujo](https://github.com/Sharksumi/LIM017-md-links/blob/main/img/MD%20Links%20Fixed%20-Page-1.drawio.png)
 
 - Historia de usuario 2
 Se creo la función recursiva, se logró entrar a directorios, identificar que archivos eran MD y cuales no, se extrae el contenido de los archivos. 
@@ -59,7 +59,9 @@ Además, se aprendió y realizó una linea de comando CLI, aplicable para otros 
 
 Se adjunta un enlace con los requerimientos y parendizajes del proyecto detallados.
 
-[Documentación y requerimiento del proyecto](url)
+[Documentación y requerimiento del proyecto](https://github.com/Sharksumi/LIM017-md-links/blob/main/documentation.md)
+
+
 ## Autora
 
 - Nay Trevejo [@Nay Trevejo](https://github.com/Sharksumi)
