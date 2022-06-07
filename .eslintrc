@@ -2,7 +2,16 @@
   "env": {
     "node": true
   },
+  "extends":
+    "standard",
+  "rules":{
+    "indent": ["error", 2],
+    "linebreak-style": 0,
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"]
+  },
   "parserOptions": {
-    "ecmaVersion": 8
+    "ecmaVersion": 8,
+    "sourceType": "module"
   }
 }
