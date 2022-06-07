@@ -2,12 +2,12 @@ import { getAbsolutePath, fileExists, getMdRoutes, extractLinks, validateLinks, 
 
 export const mdLinks = (route, options) => new Promise((resolve, reject) => {
   if (!route) {
-    console.log('no hay path');
+    console.log('no hay path'); // reject
     return;
   }
   const absolutePath = getAbsolutePath(route);
   if (!fileExists(absolutePath)) {
-    console.log('La ruta no existe');
+    console.log('La ruta no existe'); // reject
   }
   const mdRoutes = getMdRoutes(absolutePath);
   let foundLinks = [];
@@ -15,16 +15,20 @@ export const mdLinks = (route, options) => new Promise((resolve, reject) => {
     foundLinks = foundLinks.concat(extractLinks(route));
   });
 
-  validateLinks(foundLinks)
-    .then(links => {
-      let result = foundLinks;
-      if (options.validate) {
-        result = links;
-      }
-      if (options.stats) {
-        result = getStats(result, options.validate);
-      }
-      resolve(result);
-    })
-    .catch(error => reject(error));
+  if (options.validate) {
+    validateLinks(foundLinks)
+      .then(links => {
+        let result = foundLinks;
+        if (options.validate) {
+          result = links;
+        }
+        if (options.stats) {
+          result = getStats(result, options.validate);
+        }
+        resolve(result);
+      })
+      .catch(error => reject(error));
+  } else {
+    resolve(foundLinks);
+  }
 });

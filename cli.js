@@ -29,4 +29,4 @@ const options = { validate: cli.validate, stats: cli.stats };
 mdLinks(route, options)
   .then(links => {
     console.log(links);
-}).catch(error => console.log(error));
+  }).catch(error => console.log(error));

@@ -2,8 +2,6 @@ import path from 'path';
 import fs from 'fs';
 import fetch from 'node-fetch';
 
-const linksArray = [];
-
 export const getAbsolutePath = (route) => path.isAbsolute(route) ? route : path.resolve(route);
 export const fileExists = (route) => fs.existsSync(route); // booleano
 export const readFile = (route) => fs.readFileSync(route, 'utf-8'); // contenido del archivo
@@ -44,7 +42,7 @@ export const extractLinks = (routeWithLink) => {
   }
   return foundLinks;
 };
-// links array tiene objetos
+
 
 // nueva promesa
 
