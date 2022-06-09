@@ -64,5 +64,5 @@ Se adjunta un enlace con los requerimientos y parendizajes del proyecto detallad
 
 ## Autora
 
-- Nay Trevejo [@Nay Trevejo](https://github.com/Sharksumi)
+- [@Nay Trevejo](https://github.com/Sharksumi)
 
